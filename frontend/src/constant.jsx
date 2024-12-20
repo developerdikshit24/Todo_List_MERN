@@ -1,1 +1,1 @@
-export const fetchUrl = 'http://localhost:8000/api/v1/todo/'
+export const fetchUrl = 'http:/your_api/'

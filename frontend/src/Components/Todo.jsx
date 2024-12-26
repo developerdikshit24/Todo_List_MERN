@@ -37,7 +37,7 @@ const Todo = () => {
     }, [handelAdd, handelEdit, handelDelete])
 
     const handelCheckbox = async (e) => {
-        const response = await axios.post(`${fetchUrl}completedTask`, { completeTodoId: e.target.name })
+        await axios.post(`${fetchUrl}completedTask`, { completeTodoId: e.target.name })
     }
     const toggleFinishedTaks = async () => {
         setTaskFinished(!taskFinished)

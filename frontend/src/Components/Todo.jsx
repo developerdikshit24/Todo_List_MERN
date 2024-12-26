@@ -1,6 +1,6 @@
 import { React, useState, useCallback, useEffect } from 'react'
 import axios from 'axios'
-import {fetchUrl}from "../constant.jsx"
+import { fetchUrl } from "../constant.jsx"
 const Todo = () => {
     const [todo, setTodo] = useState("")
     const [todos, setTodos] = useState([])
@@ -8,9 +8,7 @@ const Todo = () => {
 
     const handelAdd = useCallback(async () => {
         if (todo.trim() == '') return alert("Todo is empty");
-        const response = await axios.post(`${fetchUrl}addTodo`, {
-            newTodo: todo
-        })
+        await axios.post(`${fetchUrl}addTodo`, { newTodo: todo })
         setTodo("")
 
     }, [todo])
@@ -41,9 +39,9 @@ const Todo = () => {
     const handelCheckbox = async (e) => {
         const response = await axios.post(`${fetchUrl}completedTask`, { completeTodoId: e.target.name })
     }
-    const toggleFinishedTaks = async() => {
+    const toggleFinishedTaks = async () => {
         setTaskFinished(!taskFinished)
-     }
+    }
 
     const handleChange = (e) => {
         setTodo(e.target.value);
@@ -58,11 +56,11 @@ const Todo = () => {
             <h1 className='text-3xl font-bold text-center '>Todo List</h1>
             <p className='font-bold text-xl'>Add Todo:</p>
             <div className="inputbox flex gap-3 w-full px-0 py-2" >
-                <input onChange={handleChange} onKeyUpCapture={handelEnter} value={todo}  type="text" className='outline-none  rounded-xl px-3 w-full' placeholder='Add Todo' />
+                <input onChange={handleChange} onKeyUpCapture={handelEnter} value={todo} type="text" className='outline-none  rounded-xl px-3 w-full' placeholder='Add Todo' />
                 <button disabled={todo.length <= 3} onClick={handelAdd} className=' disabled:bg-neutral-600 bg-purple-600 hover:bg-purple-800 active:bg-purple-950 px-1.5 py-1.5 font-bold text-white w-14 rounded-xl border-2' type="button">Add</button>
             </div>
             <div className="check flex gap-1">
-                <input type="checkbox" onChange={toggleFinishedTaks} checked = {taskFinished} className='accent-purple-700 cursor-pointer' name="showFinished" />
+                <input type="checkbox" onChange={toggleFinishedTaks} checked={taskFinished} className='accent-purple-700 cursor-pointer' name="showFinished" />
                 <label htmlFor='showFinished' className='text-sm text-neutral-700'>Show Finished</label>
             </div>
             <p className='text-center font-xs text-neutral-400'>_________________________________________________________________</p>
@@ -72,7 +70,7 @@ const Todo = () => {
                     <div className='text-sm text-neutral-700 font-bold'>{todos.length === 0 && "No todos to display"}</div>
                     <ul>
                         {todos.map((items) => {
-                            return (taskFinished || !items.isCompleted)&& <li key={items._id} className='flex pb-2 gap-3 justify-between items-center'>
+                            return (taskFinished || !items.isCompleted) && <li key={items._id} className='flex pb-2 gap-3 justify-between items-center'>
                                 <div className="task flex gap-3">
                                     <input type="checkbox" name={items._id} onChange={handelCheckbox} checked={items.isCompleted} className='accent-purple-700 cursor-pointer' />
                                     <p className={items.isCompleted ? "line-through" : ""}>{items.todo}</p>

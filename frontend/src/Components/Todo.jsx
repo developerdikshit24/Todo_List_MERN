@@ -39,25 +39,18 @@ const Todo = () => {
     const handelCheckbox = async (e) => {
         await axios.post(`${fetchUrl}completedTask`, { completeTodoId: e.target.name })
     }
-    const toggleFinishedTaks = async () => {
-        setTaskFinished(!taskFinished)
-    }
-
-    const handleChange = (e) => {
-        setTodo(e.target.value);
-    }
 
     return (
         <div className="container max-w-3xl min-h-96 m-auto px-4 h-auto relative top-36 p-5 rounded-xl bg-purple-200">
             <h1 className='text-3xl font-bold text-center '>Todo List</h1>
             <p className='font-bold text-xl'>Add Todo:</p>
             <form className="inputbox flex gap-3 w-full px-0 py-2" >
-                <input onChange={handleChange} value={todo} type="text" className='outline-none  rounded-xl px-3 w-full' placeholder='Add Todo' />
+                <input onChange={(e) => { setTodo(e.target.value); }} value={todo} type="text" className='outline-none  rounded-xl px-3 w-full' placeholder='Add Todo' />
                 <button disabled={todo.length <= 3} onClick={handelAdd} className=' disabled:bg-neutral-600 bg-purple-600 hover:bg-purple-800 active:bg-purple-950 px-1.5 py-1.5 font-bold
                  text-white w-14 rounded-xl border-2' type="submit" >Add</button>
             </form>
             <div className="check flex gap-1">
-                <input type="checkbox" onChange={toggleFinishedTaks} checked={taskFinished} className='accent-purple-700 cursor-pointer' name="showFinished" />
+                <input type="checkbox" onChange={()=>{setTaskFinished(!taskFinished)}} checked={taskFinished} className='accent-purple-700 cursor-pointer' name="showFinished" />
                 <label htmlFor='showFinished' className='text-sm text-neutral-700'>Show Finished</label>
             </div>
             <p className='text-center font-xs text-neutral-400'>_________________________________________________________________</p>
